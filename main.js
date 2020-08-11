@@ -101,7 +101,7 @@ class Bg15 extends utils.Adapter {
 		this.setState("info.connection", true, true);
 
 
-		const { statusCode, data, headers } = await curly.post("http://www.google.com");
+		const { statusCode, data, headers } = await curly.get("http://www.google.com");
 		
 		this.log.info("------Status--------");
 		this.log.info(statusCode.toString());
@@ -114,26 +114,14 @@ class Bg15 extends utils.Adapter {
 		const myuser ="test";
 		const mypassword ="test";
 		
-		
-		let  data1 ; 
-		
-		try{ 
-			data1= await curly.post(UrlBG, 
-				{postFields: JSON.stringify({ username: myuser, password: mypassword }),
-					httpHeader: ["Content-Type: application/json", "Accept: application/json"
-					],
-				});
+		const  {data1} =  await curly.post(UrlBG, 
+			{postFields: JSON.stringify({ username: myuser, password: mypassword }),
+				httpHeader: ["Content-Type: application/json", "Accept: application/json"
+				],
+			});
 
-			this.log.info("------Post return Data--------");
-			this.log.info(data1.toString());
-		}
-		catch (e) {
-			this.log.info("------Post return ERROR--------");
-			this.log.error(e);
-		}
-		finally{
-			this.log.info("-------------------------------");
-		}
+		this.log.info("------Post return Data--------");
+		this.log.info(data1.toString());
 
 		await this.setStateAsync("testtext", statusCode.toString());
 
