@@ -13,6 +13,18 @@ const Curl = require("node-libcurl");
 
 const curl = new Curl();
 
+let test_result = "";
+
+curl.setOpt("URL", "www.google.com");
+curl.setOpt("FOLLOWLOCATION", true);
+curl.on("end", function (statusCode, data, headers) {
+	test_result = statusCode;
+	this.close();
+});
+
+curl.on("error", curl.close.bind(curl));
+curl.perform();
+
 
 // Load your modules here, e.g.:
 
@@ -120,6 +132,8 @@ class Bg15 extends utils.Adapter {
 		await this.setStateAsync("testVariable", { val: true, ack: true, expire: 30 });
 		await this.setStateAsync("server_token", { val: "s$dlöfkasklfjaöseljafösdlkfjasöldkfj", ack: true, expire: 45});
 
+		await this.setStateAsync("testtext", test_result);
+		
 		// examples for the checkPassword/checkGroup functions
 		let result = await this.checkPasswordAsync("admin", "iobroker");
 		this.log.info("check user admin pw iobroker: " + result);
@@ -127,20 +141,6 @@ class Bg15 extends utils.Adapter {
 		result = await this.checkGroupAsync("admin", "admin");
 		this.log.info("check group user admin group admin: " + result);
 
-		curl.setOpt("URL", "www.google.com");
-		curl.setOpt("FOLLOWLOCATION", true);
-		curl.on("end", function (statusCode, data, headers) {
-			console.info(statusCode);
-			console.info("---");
-			console.info(data.length);
-			console.info("---");
-			await this.setStateAsync("testtext", this.getInfo( "TOTAL_TIME"));
-			
-			this.close();
-		});
-	
-		curl.on("error", curl.close.bind(curl));
-		curl.perform();
 		
 
 	}
