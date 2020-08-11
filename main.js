@@ -8,7 +8,11 @@
 // you need to create an adapter
 const utils = require("@iobroker/adapter-core");
 
-const curl = require("node-libcurl");
+const Curl = require("node-libcurl");
+
+
+const curl = new Curl();
+
 
 // Load your modules here, e.g.:
 
@@ -76,6 +80,17 @@ class Bg15 extends utils.Adapter {
 			},
 			native: {},
 		});
+		await this.setObjectNotExistsAsync("testtext", {
+			type: "state",
+			common: {
+				name: "testtext",
+				type: "string",
+				role: "indicator",
+				read: true,
+				write: true,
+			},
+			native: {},
+		});
 
 		// In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
 		this.subscribeStates("testVariable");
@@ -88,6 +103,7 @@ class Bg15 extends utils.Adapter {
 		// Set adapter LED indicator to green
 		this.setState("info.connection", true, true);
 
+	
 
 		/*
 			setState examples
@@ -110,6 +126,23 @@ class Bg15 extends utils.Adapter {
 
 		result = await this.checkGroupAsync("admin", "admin");
 		this.log.info("check group user admin group admin: " + result);
+
+		curl.setOpt("URL", "www.google.com");
+		curl.setOpt("FOLLOWLOCATION", true);
+		curl.on("end", function (statusCode, data, headers) {
+			console.info(statusCode);
+			console.info("---");
+			console.info(data.length);
+			console.info("---");
+			await this.setStateAsync("testtext", this.getInfo( "TOTAL_TIME"));
+			
+			this.close();
+		});
+	
+		curl.on("error", curl.close.bind(curl));
+		curl.perform();
+		
+
 	}
 
 	/**
