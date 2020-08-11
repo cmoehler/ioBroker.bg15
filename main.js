@@ -8,23 +8,7 @@
 // you need to create an adapter
 const utils = require("@iobroker/adapter-core");
 
-const Curl = require("node-libcurl");
-
-
-const curl = new Curl();
-
-let test_result = "";
-
-curl.setOpt("URL", "www.google.com");
-curl.setOpt("FOLLOWLOCATION", true);
-curl.on("end", function (statusCode, data, headers) {
-	test_result = statusCode;
-	this.close();
-});
-
-curl.on("error", curl.close.bind(curl));
-curl.perform();
-
+const { curly } = require("node-libcurl");
 
 // Load your modules here, e.g.:
 
@@ -115,7 +99,10 @@ class Bg15 extends utils.Adapter {
 		// Set adapter LED indicator to green
 		this.setState("info.connection", true, true);
 
-	
+		const { statusCode, data, headers } = await curly.get("http://www.google.com");
+
+		await this.setStateAsync("testtext", headers);
+
 
 		/*
 			setState examples
@@ -132,8 +119,7 @@ class Bg15 extends utils.Adapter {
 		await this.setStateAsync("testVariable", { val: true, ack: true, expire: 30 });
 		await this.setStateAsync("server_token", { val: "s$dlöfkasklfjaöseljafösdlkfjasöldkfj", ack: true, expire: 45});
 
-		await this.setStateAsync("testtext", test_result);
-		
+
 		// examples for the checkPassword/checkGroup functions
 		let result = await this.checkPasswordAsync("admin", "iobroker");
 		this.log.info("check user admin pw iobroker: " + result);
