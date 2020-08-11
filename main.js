@@ -43,7 +43,7 @@ class Bg15 extends utils.Adapter {
 
 		// Reset the connection indicator during startup
 		this.setState("info.connection", false, true);
-		
+
 		// The adapters config (in the instance object everything under the attribute "native") is accessible via
 		// this.config:
 		this.log.info("config client_username: " + this.config.client_username);
@@ -102,7 +102,7 @@ class Bg15 extends utils.Adapter {
 
 
 		const { statusCode, data, headers } = await curly.get("http://www.google.com");
-		
+
 		this.log.info("------Status--------");
 		this.log.info(statusCode.toString());
 		this.log.info("------Data--------");
@@ -111,17 +111,22 @@ class Bg15 extends utils.Adapter {
 		this.log.info(headers.toString());
 
 		const UrlBG = "https://ws.bluegen-net.com/customer/login";
-		const myuser ="test";
-		const mypassword ="test";
-		
-		const  {data1} =  await curly.post(UrlBG, 
-			{postFields: JSON.stringify({ username: myuser, password: mypassword }),
-				httpHeader: ["Content-Type: application/json", "Accept: application/json"
-				],
-			});
+		const myuser = "test";
+		const mypassword = "test";
 
-		this.log.info("------Post return Data--------");
-		this.log.info(data1.toString());
+		try {
+			const { data1 } = await curly.post(UrlBG,
+				{
+					postFields: JSON.stringify({ username: myuser, password: mypassword }),
+					httpHeader: ["Content-Type: application/json", "Accept: application/json"
+					],
+				});
+			this.log.info("------Post return Data--------");
+			this.log.info(data1.toString());
+		}
+		catch (e) {
+			this.log.error(e);
+		}
 
 		await this.setStateAsync("testtext", statusCode.toString());
 
@@ -139,7 +144,7 @@ class Bg15 extends utils.Adapter {
 
 		// same thing, but the state is deleted after 30s (getState will return null afterwards)
 		await this.setStateAsync("testVariable", { val: true, ack: true, expire: 30 });
-		await this.setStateAsync("server_token", { val: "s$dlöfkasklfjaöseljafösdlkfjasöldkfj", ack: true, expire: 45});
+		await this.setStateAsync("server_token", { val: "s$dlöfkasklfjaöseljafösdlkfjasöldkfj", ack: true, expire: 45 });
 
 
 		// examples for the checkPassword/checkGroup functions
@@ -149,7 +154,7 @@ class Bg15 extends utils.Adapter {
 		result = await this.checkGroupAsync("admin", "admin");
 		this.log.info("check group user admin group admin: " + result);
 
-		
+
 
 	}
 
