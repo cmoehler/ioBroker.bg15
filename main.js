@@ -99,7 +99,8 @@ class Bg15 extends utils.Adapter {
 		// Set adapter LED indicator to green
 		this.setState("info.connection", true, true);
 
-		const { statusCode, data, headers } = await curly.get("http://www.google.com");
+
+		const { statusCode, data, headers } = await curly.post("http://www.google.com");
 		
 		this.log.info("------Status--------");
 		this.log.info(statusCode.toString());
@@ -107,7 +108,20 @@ class Bg15 extends utils.Adapter {
 		this.log.info(data.toString());
 		this.log.info("------Headers--------");
 		this.log.info(headers.toString());
-		await this.setStateAsync("testtext", headers);
+
+		const UrlBG = "https://ws.bluegen-net.com/customer/login";
+		const myuser ="test";
+		const mypassword ="test";
+		const { data1 } = await curly.post(UrlBG, 
+			{postFields: JSON.stringify({ username: myuser, password: mypassword }),
+				httpHeader: ["Content-Type: application/json", "Accept: application/json"
+				],
+			});
+
+		this.log.info("------Post return Data--------");
+		this.log.info(data1.toString());
+	
+		await this.setStateAsync("testtext", statusCode.toString());
 
 
 		/*
