@@ -101,8 +101,11 @@ class Bg15 extends utils.Adapter {
 
 		const { statusCode, data, headers } = await curly.get("http://www.google.com");
 		
+		this.log.info("------Status--------");
 		this.log.info(statusCode.toString());
+		this.log.info("------Data--------");
 		this.log.info(data.toString());
+		this.log.info("------Headers--------");
 		this.log.info(headers.toString());
 		await this.setStateAsync("testtext", headers);
 
