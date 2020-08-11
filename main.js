@@ -125,6 +125,7 @@ class Bg15 extends utils.Adapter {
 			this.log.info(data1.toString());
 		}
 		catch (e) {
+			this.log.info("------Login ERROR--------");
 			this.log.error(e);
 		}
 
