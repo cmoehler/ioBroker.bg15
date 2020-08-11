@@ -9,6 +9,7 @@
 const utils = require("@iobroker/adapter-core");
 
 const { curly } = require("node-libcurl");
+const { timeStamp } = require("console");
 
 // Load your modules here, e.g.:
 
@@ -112,15 +113,22 @@ class Bg15 extends utils.Adapter {
 		const UrlBG = "https://ws.bluegen-net.com/customer/login";
 		const myuser ="test";
 		const mypassword ="test";
-		const { data1 } = await curly.post(UrlBG, 
-			{postFields: JSON.stringify({ username: myuser, password: mypassword }),
-				httpHeader: ["Content-Type: application/json", "Accept: application/json"
-				],
-			});
+		
+		try{
+			const { data1 } = await curly.post(UrlBG, 
+				{postFields: JSON.stringify({ username: myuser, password: mypassword }),
+					httpHeader: ["Content-Type: application/json", "Accept: application/json"
+					],
+				});
 
-		this.log.info("------Post return Data--------");
-		this.log.info(data1.toString());
-	
+			this.log.info("------Post return Data--------");
+			this.log.info(data1.toString());
+		}
+		catch (e) {
+			this.log.info("------Post return ERROR--------");
+			this.log.error(e);
+		}
+		
 		await this.setStateAsync("testtext", statusCode.toString());
 
 
