@@ -101,15 +101,9 @@ class Bg15 extends utils.Adapter {
 
 		const { statusCode, data, headers } = await curly.get("http://www.google.com");
 		
-		const { data2 } = await curly.post("http://httpbin.com/post", {
-			postFields: JSON.stringify({ field: "value" }),
-			httpHeader: [
-				"Content-Type: application/json",
-				"Accept: application/json"
-			],
-		});
-
-		this.log.info(JSON.parse(data2));
+		this.log.info(statusCode.toString());
+		this.log.info(data.toString());
+		this.log.info(headers.toString());
 		await this.setStateAsync("testtext", headers);
 
 
