@@ -157,8 +157,8 @@ class Bg15 extends utils.Adapter {
 		this.log.info("check group user admin group admin: " + result);
 
 
-		Test();
-		
+		await Test();
+
 		myBG15 = this;
 
 	}
@@ -245,7 +245,7 @@ if (module.parent) {
 	new Bg15();
 }
 
-function Test (parameter1, parameter2){
+async function Test (parameter1, parameter2){
 	try {
 		const { data1 } = await curly.post(Test_API_SITE_BASE + "/api/users",
 			{
