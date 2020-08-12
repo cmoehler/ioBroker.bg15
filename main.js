@@ -11,7 +11,7 @@ const utils = require("@iobroker/adapter-core");
 const { curly } = require("node-libcurl");
 const { timeStamp } = require("console");
 
-const { Test_API_SITE_BASE } = "https://reqres.in/";
+const { Test_API_SITE_BASE } = "https://reqres.in";
 // Load your modules here, e.g.:
 
 let myBG15;
