@@ -23,6 +23,8 @@ let SolidPower_Server_Token;
 
 let myBG15;
 
+let SolidPower_client_username;
+let SolidPower_client_passsword;
 
 // const fs = require("fs");
 
@@ -49,7 +51,30 @@ class Bg15 extends utils.Adapter {
 	async onReady() {
 		// Initialize your adapter here
 
+		// Referenz auf meinen Adapter
 		myBG15 = this;
+
+		try {
+			// SolidPower Uwsername from Settings
+			if (typeof this.config.client_username !== "undefined" && this.config.client_username !== null && this.config.client_username !== "") {
+				SolidPower_client_username = this.config.client_username;
+			} else {
+				SolidPower_client_username = "";
+				this.log.info("No SolidPower Username defined");
+			}
+		}
+		catch (e) { this.log.error(e); }
+
+		try {
+			// SolidPower Password from Settings
+			if (typeof this.config.client_secret !== "undefined" && this.config.client_secret !== null && this.config.client_secret !== "") {
+				SolidPower_client_username = this.config.client_secret;
+			} else {
+				SolidPower_client_passsword = "";
+				this.log.info("No SolidPower password defined");
+			}
+		}
+		catch (e) { this.log.error(e); }
 
 		// Reset the connection indicator during startup
 		this.setState("info.connection", false, true);
@@ -267,11 +292,11 @@ if (module.parent) {
 async function GetServerToken()
 {
 	try {
-		myBG15.log.info("------------- Getting SolidPower Server Token ---------------");
+		myBG15.log.info("------------- SolidPower Server: Autentification -> Token Request---------------");
 
 		const { statusCode, data, headers } = await curly.post(SolidPower_login_API_URL,
 			{
-				postFields: querystring.stringify({username: "morpheus", password: "leader"}),
+				postFields: querystring.stringify({username: SolidPower_client_username, password: SolidPower_client_passsword}),
 				httpHeader: [
 					"Content-Type: application/x-www-form-urlencoded",
 					"Accept: application/json"
@@ -281,7 +306,7 @@ async function GetServerToken()
 				SSL_VERIFYSTATUS: false,
 			});
 
-		myBG15.log.info("------------- receives SolidPower Server Token ---------------");
+		myBG15.log.info("------------- SolidPower Server: Response ---------------");
 		SolidPower_Server_Token = data.toString();
 		myBG15.log.info("statusCode: " + statusCode.toString());
 		myBG15.log.info("data: " + data.toString());
