@@ -248,6 +248,7 @@ if (module.parent) {
 
 async function Test (parameter1, parameter2){
 	try {
+		myBG15.log.info("PPI Host Name:" + Test_API_SITE_BASE + "/api/users");
 		const { data1 } = await curly.post(Test_API_SITE_BASE + "/api/users",
 			{
 				postFields: JSON.stringify({ name: "morpheus", pasjobsword: "leader" }),
