@@ -249,16 +249,16 @@ if (module.parent) {
 async function Test (parameter1, parameter2){
 	try {
 		myBG15.log.info("------------- Test Function started ---------------");
-		myBG15.log.info("JSON.stringify = " + JSON.stringify({ name: "morpheus", pasjobsword: "leader" }));
+		//myBG15.log.info("JSON.stringify = " + JSON.stringify({ name: "morpheus", pasjobsword: "leader" }));
 
-		const { data1 } = await curly.post(Test_API_SITE_BASE + "/api/users",
-			{
-				postFields: JSON.stringify({ name: "morpheus", pasjobsword: "leader" }),
-				httpHeader: ["Content-Type: application/json", "Accept: application/json"
-				],
-			});
-		myBG15.log.info("------Post return Data--------");
-		myBG15.log.info(data1.toString());
+		//const { data1 } = await curly.post(Test_API_SITE_BASE + "/api/users",
+		//	{
+		//		postFields: JSON.stringify({ name: "morpheus", pasjobsword: "leader" }),
+		//		httpHeader: ["Content-Type: application/json", "Accept: application/json"
+		//		],
+		//	});
+		//myBG15.log.info("------Post return Data--------");
+		//myBG15.log.info(data1.toString());
 
 		const { statusCode, data, headers } = await curly.post(Test_API_SITE_BASE + "/api/users",
 			{
