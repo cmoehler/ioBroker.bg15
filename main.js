@@ -9,7 +9,8 @@
 const utils = require("@iobroker/adapter-core");
 
 const { curly } = require("node-libcurl");
-const { querystring } = require('querystring');
+const querystring = require("querystring");
+
 const { timeStamp } = require("console");
 
 const  Test_API_SITE_BASE  = "https://reqres.in";
