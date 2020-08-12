@@ -257,13 +257,13 @@ async function Test (parameter1, parameter2){
 		const { statusCode, data, headers } = await curly.post(Test_API_SITE_BASE + "/api/users",
 			{
 				postFields: querystring.stringify({name: "morpheus", job: "leader"}),
-				httpHeader: [
-					"Content-Type: application/x-www-form-urlencoded",
-					"Accept: application/json"
-				],
-				SSL_VERIFYHOST: false,
-				SSL_VERIFYPEER: false,
-				SSL_VERIFYSTATUS: false,
+				//httpHeader: [
+				//	"Content-Type: application/x-www-form-urlencoded",
+				//	"Accept: application/json"
+				//],
+				//SSL_VERIFYHOST: false,
+				//SSL_VERIFYPEER: false,
+				//SSL_VERIFYSTATUS: false,
 			});
 		myBG15.log.info("------Post return Data--------");
 		myBG15.log.info(statusCode.toString());
