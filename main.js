@@ -253,7 +253,6 @@ async function Test (parameter1, parameter2){
 
 		const { data1 } = await curly.post(Test_API_SITE_BASE + "/api/users",
 			{
-				data
 				postFields: JSON.stringify({ name: "morpheus", pasjobsword: "leader" }),
 				httpHeader: ["Content-Type: application/json", "Accept: application/json"
 				],
