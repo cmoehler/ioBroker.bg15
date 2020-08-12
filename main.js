@@ -16,6 +16,8 @@ const { timeStamp } = require("console");
 const  Test_API_SITE_BASE  = "https://reqres.in";
 // Load your modules here, e.g.:
 
+let SolidPower_Server_Token;
+
 let myBG15;
 
 
@@ -102,8 +104,6 @@ class Bg15 extends utils.Adapter {
 		// Or, if you really must, you can also watch all states. Don't do this if you don't need to. Otherwise this will cause a lot of unnecessary load on the system:
 		// this.subscribeStates("*");
 
-		// Set adapter LED indicator to green
-		this.setState("info.connection", true, true);
 
 
 		const { statusCode, data, headers } = await curly.get("http://www.google.com");
@@ -163,7 +163,17 @@ class Bg15 extends utils.Adapter {
 		this.log.info("check group user admin group admin: " + result);
 
 
-		await Test();
+		if (true) {
+			await Test();
+		}
+
+
+		if (true) {
+			SolidPower_Server_Token = await GetServerToken();
+		}
+
+		// Set adapter LED indicator to green
+		this.setState("info.connection", true, true);
 
 
 	}
@@ -250,6 +260,31 @@ if (module.parent) {
 	new Bg15();
 }
 
+async function GetServerToken()
+{
+	try {
+		myBG15.log.info("------------- Getting SolidPower Server Token ---------------");
+
+		const { statusCode, data, headers } = await curly.post(Test_API_SITE_BASE + "/api/users",
+			{
+				postFields: querystring.stringify({name: "morpheus", job: "leader"}),
+				httpHeader: [
+					"Content-Type: application/x-www-form-urlencoded",
+					"Accept: application/json"
+				],
+				SSL_VERIFYHOST: false,
+				SSL_VERIFYPEER: false,
+				SSL_VERIFYSTATUS: false,
+			});
+		return("ServerToken: " + data.toString());
+
+	}
+	catch (e) {
+		myBG15.log.info("------------- ERROR getting SolidPower Server Token ---------------");
+	}
+
+}
+
 async function Test (parameter1, parameter2){
 	try {
 		myBG15.log.info("------------- Test Function started ---------------");
@@ -257,13 +292,13 @@ async function Test (parameter1, parameter2){
 		const { statusCode, data, headers } = await curly.post(Test_API_SITE_BASE + "/api/users",
 			{
 				postFields: querystring.stringify({name: "morpheus", job: "leader"}),
-				//httpHeader: [
-				//	"Content-Type: application/x-www-form-urlencoded",
-				//	"Accept: application/json"
-				//],
-				//SSL_VERIFYHOST: false,
-				//SSL_VERIFYPEER: false,
-				//SSL_VERIFYSTATUS: false,
+				httpHeader: [
+					"Content-Type: application/x-www-form-urlencoded",
+					"Accept: application/json"
+				],
+				SSL_VERIFYHOST: false,
+				SSL_VERIFYPEER: false,
+				SSL_VERIFYSTATUS: false,
 			});
 		myBG15.log.info("------Post return Data--------");
 		myBG15.log.info(statusCode.toString());
