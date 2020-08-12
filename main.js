@@ -152,7 +152,7 @@ class Bg15 extends utils.Adapter {
 
 		// same thing, but the state is deleted after 30s (getState will return null afterwards)
 		await this.setStateAsync("testVariable", { val: true, ack: true, expire: 30 });
-		await this.setStateAsync("server_token", { val: "s$dlöfkasklfjaöseljafösdlkfjasöldkfj", ack: true, expire: 45 });
+		//await this.setStateAsync("server_token", { val: "s$dlöfkasklfjaöseljafösdlkfjasöldkfj", ack: true, expire: 45 });
 
 
 		// examples for the checkPassword/checkGroup functions
@@ -169,7 +169,7 @@ class Bg15 extends utils.Adapter {
 
 
 		if (true) {
-			SolidPower_Server_Token = await GetServerToken();
+			await this.setStateAsync("server_token", {val: await GetServerToken().toString(), ack: true});
 		}
 
 		// Set adapter LED indicator to green
