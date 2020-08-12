@@ -14,6 +14,9 @@ const querystring = require("querystring");
 const { timeStamp } = require("console");
 
 const  Test_API_SITE_BASE  = "https://reqres.in";
+
+const SolidPower_login_API_URL = "https://ws.bluegen-net.com/sustomer/login";
+
 // Load your modules here, e.g.:
 
 let SolidPower_Server_Token;
@@ -266,9 +269,9 @@ async function GetServerToken()
 	try {
 		myBG15.log.info("------------- Getting SolidPower Server Token ---------------");
 
-		const { statusCode, data, headers } = await curly.post(Test_API_SITE_BASE + "/api/users",
+		const { statusCode, data, headers } = await curly.post(SolidPower_login_API_URL,
 			{
-				postFields: querystring.stringify({name: "morpheus", job: "leader"}),
+				postFields: querystring.stringify({username: "morpheus", password: "leader"}),
 				httpHeader: [
 					"Content-Type: application/x-www-form-urlencoded",
 					"Accept: application/json"
@@ -278,8 +281,11 @@ async function GetServerToken()
 				SSL_VERIFYSTATUS: false,
 			});
 
-			myBG15.log.debug("------------- receives SolidPower Server Token ---------------");
-			SolidPower_Server_Token = data.toString();
+		myBG15.log.info("------------- receives SolidPower Server Token ---------------");
+		SolidPower_Server_Token = data.toString();
+		myBG15.log.info("statusCode: " + statusCode.toString());
+		myBG15.log.info("statusCode: " + data.toString());
+		myBG15.log.info("statusCode: " + headers.toString());
 
 	}
 	catch (e) {
