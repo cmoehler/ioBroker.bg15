@@ -9,6 +9,7 @@
 const utils = require("@iobroker/adapter-core");
 
 const { curly } = require("node-libcurl");
+const { querystring } = require('querystring');
 const { timeStamp } = require("console");
 
 const  Test_API_SITE_BASE  = "https://reqres.in";
@@ -260,9 +261,11 @@ async function Test (parameter1, parameter2){
 		//myBG15.log.info("------Post return Data--------");
 		//myBG15.log.info(data1.toString());
 
+
 		const { statusCode, data, headers } = await curly.post(Test_API_SITE_BASE + "/api/users",
 			{
-				postFields: "name=morpheus&job=leader"
+				postFields: querystring({Name: "morpheus", job: "leader"})
+				//postFields: "name=morpheus&job=leader"
 			});
 		myBG15.log.info("------Post return Data--------");
 		myBG15.log.info(data.toString());
