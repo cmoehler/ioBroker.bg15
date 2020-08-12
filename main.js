@@ -119,19 +119,21 @@ class Bg15 extends utils.Adapter {
 		const myuser = "test";
 		const mypassword = "test";
 
-		try {
-			const { data1 } = await curly.post(UrlBG,
-				{
-					postFields: JSON.stringify({ username: myuser, password: mypassword }),
-					httpHeader: ["Content-Type: application/json", "Accept: application/json"
-					],
-				});
-			this.log.info("------Post return Data--------");
-			this.log.info(data1.toString());
-		}
-		catch (e) {
-			this.log.info("------Login ERROR--------");
-			this.log.error(e);
+		if (false) {
+			try {
+				const { data1 } = await curly.post(UrlBG,
+					{
+						postFields: JSON.stringify({ username: myuser, password: mypassword }),
+						httpHeader: ["Content-Type: application/json", "Accept: application/json"
+						],
+					});
+				this.log.info("------Post return Data--------");
+				this.log.info(data1.toString());
+			}
+			catch (e) {
+				this.log.info("------Login ERROR--------");
+				this.log.error(e);
+			}
 		}
 
 		await this.setStateAsync("testtext", statusCode.toString());
@@ -251,28 +253,18 @@ if (module.parent) {
 async function Test (parameter1, parameter2){
 	try {
 		myBG15.log.info("------------- Test Function started ---------------");
-		//myBG15.log.info("JSON.stringify = " + JSON.stringify({ name: "morpheus", pasjobsword: "leader" }));
-
-		//const { data1 } = await curly.post(Test_API_SITE_BASE + "/api/users",
-		//	{
-		//		postFields: JSON.stringify({ name: "morpheus", pasjobsword: "leader" }),
-		//		httpHeader: ["Content-Type: application/json", "Accept: application/json"
-		//		],
-		//	});
-		//myBG15.log.info("------Post return Data--------");
-		//myBG15.log.info(data1.toString());
-
-		myBG15.log.info("sringify Ergebis: " + querystring.stringify({Name: "morpheus", job: "leader"}));
 
 		const { statusCode, data, headers } = await curly.post(Test_API_SITE_BASE + "/api/users",
 			{
-				postFields: querystring.stringify({Name: "morpheus", job: "leader"}),
+				postFields: querystring.stringify({name: "morpheus", job: "leader"}),
 				httpHeader: [
 					"Content-Type: application/x-www-form-urlencoded",
 					"Accept: application/json"
 				],
 			});
 		myBG15.log.info("------Post return Data--------");
+		myBG15.log.info(statusCode.toString());
+		myBG15.log.info(headers.toString());
 		myBG15.log.info(data.toString());
 
 		myBG15.log.info("------------- Test Function ended ---------------");
