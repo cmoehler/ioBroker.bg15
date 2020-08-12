@@ -262,7 +262,7 @@ async function Test (parameter1, parameter2){
 					"Content-Type: application/x-www-form-urlencoded",
 					"Accept: application/json"
 				],
-				CURLOPT_SSL_VERIFYPEER: 0
+				CURLOPT_SSL_VERIFYPEER: "0L"
 			});
 		myBG15.log.info("------Post return Data--------");
 		myBG15.log.info(statusCode.toString());
