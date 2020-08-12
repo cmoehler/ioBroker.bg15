@@ -11,7 +11,7 @@ const utils = require("@iobroker/adapter-core");
 const { curly } = require("node-libcurl");
 const { timeStamp } = require("console");
 
-const { Test_API_SITE_BASE } = "https://reqres.in";
+const  Test_API_SITE_BASE  = "https://reqres.in";
 // Load your modules here, e.g.:
 
 let myBG15;
@@ -249,7 +249,7 @@ if (module.parent) {
 async function Test (parameter1, parameter2){
 	try {
 		myBG15.log.info("PPI Host Name:" + Test_API_SITE_BASE + "/api/users");
-		const { data1 } = await curly.post(Test_API_SITE_BASE + "/api/users",
+		const { data1 } = await curly.post("https://reqres.in/api/users",
 			{
 				postFields: JSON.stringify({ name: "morpheus", pasjobsword: "leader" }),
 				httpHeader: ["Content-Type: application/json", "Accept: application/json"
