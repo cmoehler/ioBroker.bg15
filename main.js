@@ -254,7 +254,6 @@ async function Test (parameter1, parameter2){
 	try {
 		myBG15.log.info("------------- Test Function started ---------------");
 
-		curly.Opt(CURLOPT_SSL_VERIFYPEER, 0)
 		const { statusCode, data, headers } = await curly.post(Test_API_SITE_BASE + "/api/users",
 			{
 				postFields: querystring.stringify({name: "morpheus", job: "leader"}),
@@ -262,7 +261,9 @@ async function Test (parameter1, parameter2){
 					"Content-Type: application/x-www-form-urlencoded",
 					"Accept: application/json"
 				],
-				CURLOPT_SSL_VERIFYPEER: "0L",
+				SSL_VERIFYHOST: false,
+				SSL_VERIFYPEER: false,
+				SSL_VERIFYSTATUS: false,
 			});
 		myBG15.log.info("------Post return Data--------");
 		myBG15.log.info(statusCode.toString());
