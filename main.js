@@ -11,9 +11,10 @@ const utils = require("@iobroker/adapter-core");
 const { curly } = require("node-libcurl");
 const { timeStamp } = require("console");
 
+const { Test_API_SITE_BASE } = "https://reqres.in/";
 // Load your modules here, e.g.:
 
-
+let myBG15;
 
 
 // const fs = require("fs");
@@ -156,6 +157,9 @@ class Bg15 extends utils.Adapter {
 		this.log.info("check group user admin group admin: " + result);
 
 
+		Test();
+		
+		myBG15 = this;
 
 	}
 
@@ -239,4 +243,22 @@ if (module.parent) {
 } else {
 	// otherwise start the instance directly
 	new Bg15();
+}
+
+function Test (parameter1, parameter2){
+	try {
+		const { data1 } = await curly.post(Test_API_SITE_BASE + "/api/users",
+			{
+				postFields: JSON.stringify({ name: "morpheus", pasjobsword: "leader" }),
+				httpHeader: ["Content-Type: application/json", "Accept: application/json"
+				],
+			});
+		myBG15.log.info("------Post return Data--------");
+		myBG15.log.info(data1.toString());
+	}
+	catch (e) {
+		myBG15.log.info("------Login ERROR--------");
+		myBG15.log.error(e);
+	}
+
 }
