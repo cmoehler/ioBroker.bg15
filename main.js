@@ -284,8 +284,8 @@ async function GetServerToken()
 		myBG15.log.info("------------- receives SolidPower Server Token ---------------");
 		SolidPower_Server_Token = data.toString();
 		myBG15.log.info("statusCode: " + statusCode.toString());
-		myBG15.log.info("statusCode: " + data.toString());
-		myBG15.log.info("statusCode: " + headers.toString());
+		myBG15.log.info("data: " + data.toString());
+		myBG15.log.info("headers: " + headers.toString());
 
 	}
 	catch (e) {
