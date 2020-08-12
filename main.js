@@ -265,7 +265,7 @@ async function Test (parameter1, parameter2){
 
 		const { statusCode, data, headers } = await curly.post(Test_API_SITE_BASE + "/api/users",
 			{
-				postFields: querystring({Name: "morpheus", job: "leader"})
+				postFields: querystring.stringify({Name: "morpheus", job: "leader"})
 				//postFields: "name=morpheus&job=leader"
 			});
 		myBG15.log.info("------Post return Data--------");
