@@ -248,19 +248,24 @@ if (module.parent) {
 
 async function Test (parameter1, parameter2){
 	try {
-		myBG15.log.info("PPI Host Name:" + Test_API_SITE_BASE + "/api/users");
-		const { data1 } = await curly.post("https://reqres.in/api/users",
+		myBG15.log.info("------------- Test Function started ---------------");
+		myBG15.log.info("JSON.stringify = " + JSON.stringify({ name: "morpheus", pasjobsword: "leader" });
+
+		const { data1 } = await curly.post(Test_API_SITE_BASE + "/api/users",
 			{
+				data
 				postFields: JSON.stringify({ name: "morpheus", pasjobsword: "leader" }),
 				httpHeader: ["Content-Type: application/json", "Accept: application/json"
 				],
 			});
 		myBG15.log.info("------Post return Data--------");
 		myBG15.log.info(data1.toString());
+		myBG15.log.info("------------- Test Function ended ---------------");
 	}
 	catch (e) {
-		myBG15.log.info("------Login ERROR--------");
+		myBG15.log.info("------------- Test Function ERROR ---------------");
 		myBG15.log.error(e);
+		myBG15.log.info("-------------------------------------------------");
 	}
 
 }
