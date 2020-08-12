@@ -169,7 +169,8 @@ class Bg15 extends utils.Adapter {
 
 
 		if (true) {
-			await this.setStateAsync("server_token", {val: await GetServerToken().toString(), ack: true});
+			await GetServerToken();
+			await this.setStateAsync("server_token", {val: SolidPower_Server_Token, ack: true});
 		}
 
 		// Set adapter LED indicator to green
@@ -276,10 +277,13 @@ async function GetServerToken()
 				SSL_VERIFYPEER: false,
 				SSL_VERIFYSTATUS: false,
 			});
-		return("ServerToken: " + data.toString());
+
+			myBG15.log.debug("------------- receives SolidPower Server Token ---------------");
+			SolidPower_Server_Token = data.toString();
 
 	}
 	catch (e) {
+		SolidPower_Server_Token = "NO TOKEN";
 		myBG15.log.info("------------- ERROR getting SolidPower Server Token ---------------");
 	}
 
