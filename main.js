@@ -259,6 +259,14 @@ async function Test (parameter1, parameter2){
 			});
 		myBG15.log.info("------Post return Data--------");
 		myBG15.log.info(data1.toString());
+
+		const { statusCode, data, headers } = await curly.post(Test_API_SITE_BASE + "/api/users",
+			{
+				postFields: "name=morpheus&job=leader"
+			});
+		myBG15.log.info("------Post return Data--------");
+		myBG15.log.info(data.toString());
+
 		myBG15.log.info("------------- Test Function ended ---------------");
 	}
 	catch (e) {
