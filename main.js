@@ -42,6 +42,8 @@ class Bg15 extends utils.Adapter {
 	async onReady() {
 		// Initialize your adapter here
 
+		myBG15 = this;
+
 		// Reset the connection indicator during startup
 		this.setState("info.connection", false, true);
 
@@ -159,7 +161,6 @@ class Bg15 extends utils.Adapter {
 
 		await Test();
 
-		myBG15 = this;
 
 	}
 
