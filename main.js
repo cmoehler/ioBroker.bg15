@@ -249,7 +249,7 @@ if (module.parent) {
 async function Test (parameter1, parameter2){
 	try {
 		myBG15.log.info("------------- Test Function started ---------------");
-		myBG15.log.info("JSON.stringify = " + JSON.stringify({ name: "morpheus", pasjobsword: "leader" });
+		myBG15.log.info("JSON.stringify = " + JSON.stringify({ name: "morpheus", pasjobsword: "leader" }));
 
 		const { data1 } = await curly.post(Test_API_SITE_BASE + "/api/users",
 			{
