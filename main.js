@@ -406,6 +406,7 @@ async function Get_BG_Units()
 	const bluegen_unit_details = {"status":{"model":"BG15","pp":"1","status":"PowerExport","tz":"Australia\/Melbourne","gid":"0","pid":"570"}};
 	const bluegen_unit_limits = {"limits":{"minpower":"800","maxpower":"1500","slew_up":"133.333","slew_dn":"133.333"}};
 	const bluegen_unit_current = {"current":{"timestamp":"2018-08-2107:05:00","power":"1493.599976","gas":"4.237735"}};
+	const bluegen_unit_accumulated ={"acc":{"timestamp":"2018-08-2107:05:30","power":"91920.303897","gas":"13722.913771"}};
 
 	//const bluegen_units = { "units": [{ "id": "249", "name": "BG-15 Keller" }] };
 
@@ -570,6 +571,38 @@ async function Get_BG_Units()
 		});
 		// unit_name des Gerätes in den Datenpunkt schreiben
 		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_current_gas", { val: bluegen_unit_current.current.gas, ack: true });
+
+		//==========================================================================================================
+		// Accumulated zur Unit abrufen NOCH NICHT IMLEMENTIERT
+		// ====== im Moment ind Konstante "bluegen_unit_current"
+		//==========================================================================================================
+
+		// Datenpunkt (unit_accumulated_when)) für die aktuelle Unit erstellen falls noch nicht vorhanden
+		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_accumulated_when", {
+			type: "state",
+			common: { name: "unit_accumulated_when", type: "string", role: "indicator", read: true, write: true, },
+			native: {},
+		});
+		// unit_name des Gerätes in den Datenpunkt schreiben
+		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_accumulated_when", { val: bluegen_unit_accumulated.acc.timestamp, ack: true });
+
+		// Datenpunkt (unit_accumulated_power)) für die aktuelle Unit erstellen falls noch nicht vorhanden
+		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_accumulated_power", {
+			type: "state",
+			common: { name: "unit_accumulated_power", type: "number", role: "indicator", read: true, write: true, },
+			native: {},
+		});
+		// unit_name des Gerätes in den Datenpunkt schreiben
+		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_accumulated_power", { val: bluegen_unit_accumulated.acc.power, ack: true });
+
+		// Datenpunkt (unit_accumulated_gas)) für die aktuelle Unit erstellen falls noch nicht vorhanden
+		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_accumulated_gas", {
+			type: "state",
+			common: { name: "unit_accumulated_gas", type: "number", role: "indicator", read: true, write: true, },
+			native: {},
+		});
+		// unit_name des Gerätes in den Datenpunkt schreiben
+		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_accumulated_gas", { val: bluegen_unit_accumulated.acc.gas, ack: true });
 
 	}
 	myBG15.log.info("------------- Get BG Units FINISH ---------------");
