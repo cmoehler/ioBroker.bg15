@@ -387,7 +387,8 @@ async function Get_BG_Units()
 	myBG15.log.info("------------- Get BG Units START ---------------");
 
 	// im Moment noch mit Dummys
-	const bluegen_units = {"units":[{"id":"249","name":"BG-15 links"},{"id":"251","name":"BG-15 rechts"}]};
+	// const bluegen_units = {"units":[{"id":"249","name":"BG-15 links"},{"id":"251","name":"BG-15 rechts"}]};
+	const bluegen_units = {"unis":[{"id":"249","name":"BG-15 links"},{"id":"251","name":"BG-15 rechts"}]};
 
 	// Anzahl der Geräte in Globaler Variable ablegen
 	SolitPower_Num_Units = bluegen_units.units.length;
