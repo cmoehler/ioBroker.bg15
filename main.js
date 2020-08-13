@@ -55,6 +55,8 @@ class Bg15 extends utils.Adapter {
 
 		// Reset the connection indicator during startup
 		this.setState("info.connection", false, true);
+
+		
 		
 		// Referenz auf meinen Adapter
 		myBG15 = this;
@@ -267,6 +269,16 @@ class Bg15 extends utils.Adapter {
 				this.log.error("ERROR Getting BlueGEN units from Server. Message:" + e);}
 		}
 
+		const objectsState = this.getAdapterObjects('states');
+
+		this.log.info("------------------- Objects start -------------------------");
+		for (const objectState of objectsState){
+		
+			this.log.info(objectState.toString());
+	
+		}
+		this.log.info("------------------- Objects end -------------------------");
+
 		// Set adapter LED indicator to green
 		this.setState("info.connection", true, true);
 
@@ -390,6 +402,7 @@ async function GetServerToken()
 async function Get_BG_Units()
 {
 	myBG15.log.info("------------- Get BG Units START ---------------");
+
 
 	// im Moment noch mit Dummys
 	//const bluegen_units = { "units": [{ "id": "249", "name": "BG-15 links" }, { "id": "251", "name": "BG-15 rechts" }] };
