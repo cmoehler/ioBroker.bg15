@@ -51,6 +51,9 @@ class Bg15 extends utils.Adapter {
 	async onReady() {
 		// Initialize your adapter here
 
+		// Reset the connection indicator during startup
+		this.setState("info.connection", false, true);
+
 		// Referenz auf meinen Adapter
 		myBG15 = this;
 
@@ -75,9 +78,6 @@ class Bg15 extends utils.Adapter {
 			}
 		}
 		catch (e) { this.log.error(e); }
-
-		// Reset the connection indicator during startup
-		this.setState("info.connection", false, true);
 
 		// The adapters config (in the instance object everything under the attribute "native") is accessible via
 		// this.config:
@@ -105,6 +105,17 @@ class Bg15 extends utils.Adapter {
 			type: "state",
 			common: {
 				name: "server_token",
+				type: "string",
+				role: "indicator",
+				read: true,
+				write: true,
+			},
+			native: {},
+		});
+		await this.setObjectNotExistsAsync("unit.version_major", {
+			type: "state",
+			common: {
+				name: "version_major",
 				type: "string",
 				role: "indicator",
 				read: true,
