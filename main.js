@@ -54,11 +54,11 @@ class Bg15 extends utils.Adapter {
 
 		// Reset the connection indicator during startup
 		this.setState("info.connection", false, true);
-
-		await Get_BG_Units();
 		
 		// Referenz auf meinen Adapter
 		myBG15 = this;
+
+		await Get_BG_Units();
 
 		try {
 			// SolidPower Uwsername from Settings
