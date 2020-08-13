@@ -536,7 +536,7 @@ async function Get_BG_Units()
 			native: {},
 		});
 		// unit_name des Gerätes in den Datenpunkt schreiben
-		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_slew_dn", { val: bluegen_unit_limits.limits.slew_dn		
+		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_slew_dn", { val: bluegen_unit_limits.limits.slew_dn, ack: true });
 
 	}
 	myBG15.log.info("------------- Get BG Units FINISH ---------------");
