@@ -369,6 +369,7 @@ async function GetServerToken()
 	try {
 		myBG15.log.info("------------- SolidPower Server: Autentification -> Token Request---------------");
 
+
 		const { statusCode, data, headers } = await curly.post(SolidPower_login_API_URL,
 			{
 				postFields: querystring.stringify({username: SolidPower_client_username, password: SolidPower_client_passsword}),
@@ -386,6 +387,69 @@ async function GetServerToken()
 		myBG15.log.info("statusCode: " + statusCode.toString());
 		myBG15.log.info("data: " + data.toString());
 		myBG15.log.info("headers: " + headers.toString());
+
+		
+		//==========================================================================================================
+		// Details Response zum Login noch Simulierte Daten NOCH NICHT IMLEMENTIERT
+		// ====== im Moment ind Konstante "SolidPower_login_server_response"
+		//==========================================================================================================
+		// DUMMY details
+		const SolidPower_login_server_response = {"jwt":"lsdkfjöklsdj-DUMMY-ölskdjöjklcnhskjncö<skldösjklcnldddd","eula":"1","last_login":"2018-08-21","timezone":"Australia\/Melbourne","dateformat":"d-m-Y","language":"en"};
+		
+		// Datenpunkt (server_jwt) (TOKEN) für autentifizierung beim Daten abholen
+		await myBG15.setObjectNotExistsAsync("server.jwt", {
+			type: "state",
+			common: { name: "jwt", type: "string", role: "indicator", read: true, write: true, },
+			native: {},
+		});
+		// server_jwt des Gerätes in den Datenpunkt schreiben
+		await myBG15.setStateAsync("server.jwt", { val: SolidPower_login_server_response.jwt, ack: true });
+		
+		// Datenpunkt (server_eula) 
+		await myBG15.setObjectNotExistsAsync("server.eula", {
+			type: "state",
+			common: { name: "eula", type: "boolean", role: "indicator", read: true, write: true, },
+			native: {},
+		});
+		// server_eula des Gerätes in den Datenpunkt schreiben
+		await myBG15.setStateAsync("server.eula", { val: SolidPower_login_server_response.eula, ack: true });
+		
+		// Datenpunkt (server_lastlogin) 
+		await myBG15.setObjectNotExistsAsync("server.lastlogin", {
+			type: "state",
+			common: { name: "lastlogin", type: "string", role: "indicator", read: true, write: true, },
+			native: {},
+		});
+		// server_lastlogin des Gerätes in den Datenpunkt schreiben
+		await myBG15.setStateAsync("server.lastlogin", { val: SolidPower_login_server_response.last_login, ack: true });
+		
+		// Datenpunkt (server_timezone) 
+		await myBG15.setObjectNotExistsAsync("server.timezone", {
+			type: "state",
+			common: { name: "timezone", type: "string", role: "indicator", read: true, write: true, },
+			native: {},
+		});
+		// server_timezone des Gerätes in den Datenpunkt schreiben
+		await myBG15.setStateAsync("server.timezone", { val: SolidPower_login_server_response.timezone, ack: true });
+		
+		// Datenpunkt (server_language) 
+		await myBG15.setObjectNotExistsAsync("server.language", {
+			type: "state",
+			common: { name: "language", type: "string", role: "indicator", read: true, write: true, },
+			native: {},
+		});
+		// server_language des Gerätes in den Datenpunkt schreiben
+		await myBG15.setStateAsync("server.language", { val: SolidPower_login_server_response.language, ack: true });
+		
+		// Datenpunkt (server_dateformat) 
+		await myBG15.setObjectNotExistsAsync("server.dateformat", {
+			type: "state",
+			common: { name: "dateformat", type: "string", role: "indicator", read: true, write: true, },
+			native: {},
+		});
+		// server_dateformat des Gerätes in den Datenpunkt schreiben
+		await myBG15.setStateAsync("server.dateformat", { val: SolidPower_login_server_response.dateformat, ack: true });
+
 
 	}
 	catch (e) {
