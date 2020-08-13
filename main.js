@@ -264,7 +264,7 @@ class Bg15 extends utils.Adapter {
 				await Get_BG_Units();}
 			catch(e)
 			{
-				this.log.error(e);}
+				this.log.error("ERROR Getting BlueGEN units from Server. Message:" + e);}
 		}
 
 		// Set adapter LED indicator to green
@@ -392,8 +392,8 @@ async function Get_BG_Units()
 	myBG15.log.info("------------- Get BG Units START ---------------");
 
 	// im Moment noch mit Dummys
-	// const bluegen_units = { "units": [{ "id": "249", "name": "BG-15 links" }, { "id": "251", "name": "BG-15 rechts" }] };
-	const bluegen_units = { "nits": [{ "id": "249", "name": "BG-15 links" }, { "id": "251", "name": "BG-15 rechts" }] };
+	//const bluegen_units = { "units": [{ "id": "249", "name": "BG-15 links" }, { "id": "251", "name": "BG-15 rechts" }] };
+	const bluegen_units = { "units": [{ "id": "249", "name": "BG-15 Keller" }] };
 
 	// Anzahl der Geräte in Globaler Variable ablegen
 	SolitPower_Num_Units = bluegen_units.units.length;
