@@ -386,6 +386,10 @@ async function Get_BG_Units()
 {
 	myBG15.log.info("------------- Get BG Units START ---------------");
 
+	const test = {"units":[{"id":"249","name":"BG0200"},{"id":"249","name":"BG0200"}]};
+
+	myBG15.log.info("Stringified JSON Object" + JSON.stringify(test));
+
 	// im Moment noch mit Dummys
 	const bluegen_units = {14580: "erster BG", 23785: "zweiter BG"};
 
