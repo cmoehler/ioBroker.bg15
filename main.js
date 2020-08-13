@@ -405,6 +405,7 @@ async function Get_BG_Units()
 	const bluegen_units = { "units": [{ "id": "249", "name": "BG-15 links" }, { "id": "251", "name": "BG-15 rechts" }] };
 	const bluegen_unit_details = {"status":{"model":"BG15","pp":"1","status":"PowerExport","tz":"Australia\/Melbourne","gid":"0","pid":"570"}};
 	const bluegen_unit_limits = {"limits":{"minpower":"800","maxpower":"1500","slew_up":"133.333","slew_dn":"133.333"}};
+	const bluegen_unit_current = {"current":{"timestamp":"2018-08-2107:05:00","power":"1493.599976","gas":"4.237735"}};
 
 	//const bluegen_units = { "units": [{ "id": "249", "name": "BG-15 Keller" }] };
 
@@ -499,44 +500,76 @@ async function Get_BG_Units()
 
 		//==========================================================================================================
 		// Limits zur Unit abrufen NOCH NICHT IMLEMENTIERT
-		// ====== im Moment ind Konstante "bluegen_unit_details"
+		// ====== im Moment ind Konstante "bluegen_unit_limits"
 		//==========================================================================================================
 
-		// Datenpunkt (unit_minpower)) für die aktuelle Unit erstellen falls noch nicht vorhanden
-		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_minpower", {
+		// Datenpunkt (unit_limits_minpower)) für die aktuelle Unit erstellen falls noch nicht vorhanden
+		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_limits_minpower", {
 			type: "state",
-			common: { name: "unit_minpower", type: "number", role: "indicator", read: true, write: true, },
+			common: { name: "unit_limits_minpower", type: "number", role: "indicator", read: true, write: true, },
 			native: {},
 		});
 		// unit_name des Gerätes in den Datenpunkt schreiben
-		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_minpower", { val: bluegen_unit_limits.limits.minpower, ack: true });
+		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_limits_minpower", { val: bluegen_unit_limits.limits.minpower, ack: true });
 
-		// Datenpunkt (unit_maxpower)) für die aktuelle Unit erstellen falls noch nicht vorhanden
-		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_maxpower", {
+		// Datenpunkt (unit_limits_maxpower)) für die aktuelle Unit erstellen falls noch nicht vorhanden
+		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_limits_maxpower", {
 			type: "state",
-			common: { name: "unit_maxpower", type: "number", role: "indicator", read: true, write: true, },
+			common: { name: "unit_limits_maxpower", type: "number", role: "indicator", read: true, write: true, },
 			native: {},
 		});
 		// unit_name des Gerätes in den Datenpunkt schreiben
-		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_maxpower", { val: bluegen_unit_limits.limits.maxpower, ack: true });
+		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_limits_maxpower", { val: bluegen_unit_limits.limits.maxpower, ack: true });
 
-		// Datenpunkt (unit_slew_up)) für die aktuelle Unit erstellen falls noch nicht vorhanden
-		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_slew_up", {
+		// Datenpunkt (unit_limits_slew_up)) für die aktuelle Unit erstellen falls noch nicht vorhanden
+		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_limits_slew_up", {
 			type: "state",
-			common: { name: "unit_slew_up", type: "number", role: "indicator", read: true, write: true, },
+			common: { name: "unit_limits_slew_up", type: "number", role: "indicator", read: true, write: true, },
 			native: {},
 		});
 		// unit_name des Gerätes in den Datenpunkt schreiben
-		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_slew_up", { val: bluegen_unit_limits.limits.slew_up, ack: true });
+		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_limits_slew_up", { val: bluegen_unit_limits.limits.slew_up, ack: true });
 
-		// Datenpunkt (unit_slew_dn)) für die aktuelle Unit erstellen falls noch nicht vorhanden
-		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_slew_dn", {
+		// Datenpunkt (unit_limits_slew_dn)) für die aktuelle Unit erstellen falls noch nicht vorhanden
+		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_limits_slew_dn", {
 			type: "state",
-			common: { name: "unit_slew_dn", type: "number", role: "indicator", read: true, write: true, },
+			common: { name: "unit_limits_slew_dn", type: "number", role: "indicator", read: true, write: true, },
 			native: {},
 		});
 		// unit_name des Gerätes in den Datenpunkt schreiben
-		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_slew_dn", { val: bluegen_unit_limits.limits.slew_dn, ack: true });
+		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_limits_slew_dn", { val: bluegen_unit_limits.limits.slew_dn, ack: true });
+
+		//==========================================================================================================
+		// Currents zur Unit abrufen NOCH NICHT IMLEMENTIERT
+		// ====== im Moment ind Konstante "bluegen_unit_current"
+		//==========================================================================================================
+
+		// Datenpunkt (unit_current_when)) für die aktuelle Unit erstellen falls noch nicht vorhanden
+		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_current_when", {
+			type: "state",
+			common: { name: "unit_current_when", type: "string", role: "indicator", read: true, write: true, },
+			native: {},
+		});
+		// unit_name des Gerätes in den Datenpunkt schreiben
+		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_current_when", { val: bluegen_unit_current.current.timestamp, ack: true });
+
+		// Datenpunkt (unit_current_power)) für die aktuelle Unit erstellen falls noch nicht vorhanden
+		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_current_power", {
+			type: "state",
+			common: { name: "unit_current_power", type: "number", role: "indicator", read: true, write: true, },
+			native: {},
+		});
+		// unit_name des Gerätes in den Datenpunkt schreiben
+		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_current_power", { val: bluegen_unit_current.current.power, ack: true });
+
+		// Datenpunkt (unit_current_gas)) für die aktuelle Unit erstellen falls noch nicht vorhanden
+		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_current_gas", {
+			type: "state",
+			common: { name: "unit_current_gas", type: "number", role: "indicator", read: true, write: true, },
+			native: {},
+		});
+		// unit_name des Gerätes in den Datenpunkt schreiben
+		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_current_gas", { val: bluegen_unit_current.current.gas, ack: true });
 
 	}
 	myBG15.log.info("------------- Get BG Units FINISH ---------------");
