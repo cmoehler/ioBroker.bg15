@@ -269,14 +269,20 @@ class Bg15 extends utils.Adapter {
 				this.log.error("ERROR Getting BlueGEN units from Server. Message:" + e);}
 		}
 
-		const objectsState = this.getAdapterObjects('states');
+		const objectsState = this.getAdapterObjects();
 
 		this.log.info("------------------- Objects start -------------------------");
-		for (const objectState of objectsState){
-		
-			this.log.info(objectState.toString());
-	
-		}
+		this.getAdapterObjects((objects) => {
+
+			for (const id of Object.keys(objects)) {
+
+				const obj = objects[id];
+				this.log.info(obj.toString());
+				// Mit ID oder dem Objekt selbst weiterarbeiten...
+
+			}
+
+		});
 		this.log.info("------------------- Objects end -------------------------");
 
 		// Set adapter LED indicator to green
