@@ -386,23 +386,14 @@ async function Get_BG_Units()
 {
 	myBG15.log.info("------------- Get BG Units START ---------------");
 
-	const test = {"units":[{"id":"249","name":"BG0200"},{"id":"251","name":"BG0200"}]};
-
-	for(let i = 0; i < test.units.length;i++){
-		myBG15.log.info("id = " + test.units[i].id);
-		myBG15.log.info("name = " + test.units[i].name);
-	}
-
-	myBG15.log.info("Stringified JSON Object" + JSON.stringify(test));
-
 	// im Moment noch mit Dummys
-	const bluegen_units = {14580: "erster BG", 23785: "zweiter BG"};
+	const bluegen_units = {"units":[{"id":"249","name":"BG-15 links"},{"id":"251","name":"BG-15 rechts"}]};
 
 	// Anzahl der Geräte in Globaler Variable ablegen
-	SolitPower_Num_Units = Object.keys(bluegen_units).length;
+	SolitPower_Num_Units = bluegen_units.units.length;
 
 	// Anzahl ins log
-	myBG15.log.info ("Anzahl BlueGens: " + Object.keys(bluegen_units).length.toString());
+	myBG15.log.info ("Anzahl BlueGens: " + SolitPower_Num_Units);
 	
 	// Datenpunkt anlegen falls er noch nicht existiert
 	await myBG15.setObjectNotExistsAsync("num_units", {
@@ -413,31 +404,31 @@ async function Get_BG_Units()
 	// Anzahl in den Datenpunkt eintragen
 	await myBG15.setStateAsync("num_units", {val: SolitPower_Num_Units, ack: true});
 
-	let akt_unit = 1;	// Zählvariable initialisieren
 
 	// Alle Units durchgehen
-	for (let key in bluegen_units ) {
+	// Bei der Objektstruktur Addieren wir + 1, damit die erste Unit unte "1" und nicht "0" in
+	// der Objektstruktur erscheint
+	for (let unit = 0; unit < bluegen_units.units.length; unit++) {
 		// logging
-		myBG15.log.info ("ID="+ key + " Name=" +  bluegen_units[key]);
+		myBG15.log.info ("ID=" + bluegen_units.units[unit].id);
 		// Datenpunkt (unit_id)) für die aktuelle Unit erstellen falls noch nicht vorhanden
-		await myBG15.setObjectNotExistsAsync("units." + akt_unit + ".unit_id", {
+		await myBG15.setObjectNotExistsAsync("units." + (unit +1 ) + ".unit_id", {
 			type: "state",
 			common: {name: "unit_id",type: "number",role: "indicator",read: true,write: true,},
 			native: {},
 		});
 		// unit_id des Gerätes in den Datenpunkt schreiben
-		await myBG15.setStateAsync("units." + akt_unit + ".unit_id", {val: key, ack: true});
+		await myBG15.setStateAsync("units." + (unit +1 ) + ".unit_id", {val: bluegen_units.units[unit].id, ack: true});
 		
 		// Datenpunkt (unit_name)) für die aktuelle Unit erstellen falls noch nicht vorhanden
-		await myBG15.setObjectNotExistsAsync("units." + akt_unit + ".unit_name", {
+		await myBG15.setObjectNotExistsAsync("units." + (unit +1 ) + ".unit_name", {
 			type: "state",
 			common: {name: "unit_name",type: "string",role: "indicator",read: true,write: true,},
 			native: {},
 		});
 		// unit_name des Gerätes in den Datenpunkt schreiben
-		await myBG15.setStateAsync("units." + akt_unit + ".unit_name", {val: bluegen_units[key], ack: true});
+		await myBG15.setStateAsync("units." + (unit +1 ) + ".unit_name", {val: bluegen_units.units[unit].name, ack: true});
 		// nächstes Gerät => Zählvariable erhöhen
-		akt_unit++;
 	}
 	myBG15.log.info("------------- Get BG Units FINISH ---------------");
 
