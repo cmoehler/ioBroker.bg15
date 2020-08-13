@@ -20,6 +20,13 @@ const SolidPower_login_API_URL = "https://ws.bluegen-net.com/sustomer/login";
 
 // Load your modules here, e.g.:
 
+// Info Generell
+// adapter.instanz.device.channel.state
+//
+// bg15.0. units.chanel.state
+//
+
+
 let SolidPower_Server_Token;
 let SolitPower_Num_Units;
 
@@ -269,21 +276,9 @@ class Bg15 extends utils.Adapter {
 				this.log.error("ERROR Getting BlueGEN units from Server. Message:" + e);}
 		}
 
-		const objectsState = this.getAdapterObjects();
+		const objectsState = this.getAdapterObjects(objects);
 
-		this.log.info("------------------- Objects start -------------------------");
-		this.getAdapterObjects((objects) => {
-
-			for (const id of Object.keys(objects)) {
-
-				const obj = objects[id];
-				this.log.info(obj.toString());
-				// Mit ID oder dem Objekt selbst weiterarbeiten...
-
-			}
-
-		});
-		this.log.info("------------------- Objects end -------------------------");
+		
 
 		// Set adapter LED indicator to green
 		this.setState("info.connection", true, true);
@@ -437,22 +432,22 @@ async function Get_BG_Units()
 		// logging
 		myBG15.log.info("ID=" + bluegen_units.units[unit].id);
 		// Datenpunkt (unit_id)) für die aktuelle Unit erstellen falls noch nicht vorhanden
-		await myBG15.setObjectNotExistsAsync("units." + (unit + 1) + ".unit_id", {
+		await myBG15.setObjectNotExistsAsync("BlueGEN_" + (unit + 1) + ".unit_id", {
 			type: "state",
 			common: { name: "unit_id", type: "number", role: "indicator", read: true, write: true, },
 			native: {},
 		});
 		// unit_id des Gerätes in den Datenpunkt schreiben
-		await myBG15.setStateAsync("units." + (unit + 1) + ".unit_id", { val: bluegen_units.units[unit].id, ack: true });
+		await myBG15.setStateAsync("BlueGEN_"  + (unit + 1) + ".unit_id", { val: bluegen_units.units[unit].id, ack: true });
 
 		// Datenpunkt (unit_name)) für die aktuelle Unit erstellen falls noch nicht vorhanden
-		await myBG15.setObjectNotExistsAsync("units." + (unit + 1) + ".unit_name", {
+		await myBG15.setObjectNotExistsAsync("BlueGEN_"  + (unit + 1) + ".unit_name", {
 			type: "state",
 			common: { name: "unit_name", type: "string", role: "indicator", read: true, write: true, },
 			native: {},
 		});
 		// unit_name des Gerätes in den Datenpunkt schreiben
-		await myBG15.setStateAsync("units." + (unit + 1) + ".unit_name", { val: bluegen_units.units[unit].name, ack: true });
+		await myBG15.setStateAsync("BlueGEN_"  + (unit + 1) + ".unit_name", { val: bluegen_units.units[unit].name, ack: true });
 		// nächstes Gerät => Zählvariable erhöhen
 	}
 	myBG15.log.info("------------- Get BG Units FINISH ---------------");
