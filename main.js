@@ -386,7 +386,12 @@ async function Get_BG_Units()
 {
 	myBG15.log.info("------------- Get BG Units START ---------------");
 
-	const test = {"units":[{"id":"249","name":"BG0200"},{"id":"249","name":"BG0200"}]};
+	const test = {"units":[{"id":"249","name":"BG0200"},{"id":"251","name":"BG0200"}]};
+
+	for(let i=0; Object.keys[test[0].length, i++)
+	{
+		myBG15.log.info("JSon " +  test[0] + "NR" + i +test[0][i]);
+	}
 
 	myBG15.log.info("Stringified JSON Object" + JSON.stringify(test));
 
