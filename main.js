@@ -21,6 +21,7 @@ const SolidPower_login_API_URL = "https://ws.bluegen-net.com/sustomer/login";
 // Load your modules here, e.g.:
 
 let SolidPower_Server_Token;
+let SolitPower_Num_Units;
 
 let myBG15;
 
@@ -386,6 +387,20 @@ async function Get_BG_Units()
 	// im Moment noch mit Dummys
 	const bluegen_units = {14580: "erster BG", 23785: "zweiter BG"};
 
+	SolitPower_Num_Units = bluegen_units.length;
+	await myBG15.setObjectNotExistsAsync("num_units", {
+		type: "state",
+		common: {
+			name: "num_units",
+			type: "number",
+			role: "indicator",
+			read: true,
+			write: true,
+		},
+		native: {},
+	});
+	await myBG15.setStateAsync("num_units", {val: SolitPower_Num_Units, ack: true});
+
 	myBG15.log.info("------------- Get BG Units START ---------------");
 
 	let i = 1;
@@ -402,6 +417,8 @@ async function Get_BG_Units()
 			},
 			native: {},
 		});
+		await myBG15.setStateAsync("units." + i + ".unit_id", {val: key, ack: true});
+
 		await myBG15.setObjectNotExistsAsync("units." + i + ".unit_name", {
 			type: "state",
 			common: {
@@ -414,7 +431,6 @@ async function Get_BG_Units()
 			native: {},
 		});
 
-		await myBG15.setStateAsync("units." + i + ".unit_id", {val: key, ack: true});
 		await myBG15.setStateAsync("units." + i + ".unit_name", {val: bluegen_units[key], ack: true});
 		i++;
 	}
