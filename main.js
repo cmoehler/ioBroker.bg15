@@ -408,6 +408,7 @@ async function Get_BG_Units()
 	const bluegen_unit_current = {"current":{"timestamp":"2018-08-2107:05:00","power":"1493.599976","gas":"4.237735"}};
 	const bluegen_unit_accumulated = {"acc":{"timestamp":"2018-08-2107:05:30","power":"91920.303897","gas":"13722.913771"}};
 	const bluegen_unit_version = {"version":{"ccp":"34","maint":"3","alarm":"2","protocol":"5"}};
+	const bluegen_unit_location = {"location":"Dandenong South, Australia","region":"Melbourne -Victoria","lhv":"10.21046"};
 
 	//const bluegen_units = { "units": [{ "id": "249", "name": "BG-15 Keller" }] };
 
@@ -645,6 +646,38 @@ async function Get_BG_Units()
 		});
 		// unit_version_protocol des Gerätes in den Datenpunkt schreiben
 		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_version_protocol", { val: bluegen_unit_version.version.protocol, ack: true });
+
+		//==========================================================================================================
+		// Location zur Unit abrufen NOCH NICHT IMLEMENTIERT
+		// ====== im Moment ind Konstante "bluegen_unit_current"
+		//==========================================================================================================
+
+		// Datenpunkt (unit_location_location)) für die aktuelle Unit erstellen falls noch nicht vorhanden
+		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_location_location", {
+			type: "state",
+			common: { name: "unit_location_location", type: "string", role: "indicator", read: true, write: true, },
+			native: {},
+		});
+		// unit_location_location des Gerätes in den Datenpunkt schreiben
+		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_location_location", { val: bluegen_unit_location.location, ack: true });
+
+		// Datenpunkt (unit_location_region)) für die aktuelle Unit erstellen falls noch nicht vorhanden
+		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_location_region", {
+			type: "state",
+			common: { name: "unit_location_region", type: "string", role: "indicator", read: true, write: true, },
+			native: {},
+		});
+		// unit_location_region des Gerätes in den Datenpunkt schreiben
+		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_location_region", { val: bluegen_unit_location.region, ack: true });
+
+		// Datenpunkt (unit_location_lhv)) für die aktuelle Unit erstellen falls noch nicht vorhanden
+		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_location_lhv", {
+			type: "state",
+			common: { name: "unit_location_lhv", type: "number", role: "indicator", read: true, write: true, },
+			native: {},
+		});
+		// unit_location_lhv des Gerätes in den Datenpunkt schreiben
+		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_location_lhv", { val: bluegen_unit_location.lhv, ack: true });
 
 	}
 	myBG15.log.info("------------- Get BG Units FINISH ---------------");
