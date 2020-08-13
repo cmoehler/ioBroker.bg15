@@ -687,7 +687,7 @@ async function Get_BG_Units()
 
 		//==========================================================================================================
 		// history zur Unit abrufen NOCH NICHT IMLEMENTIERT
-		// ====== im Moment ind Konstante "bluegen_unit_current"
+		// ====== im Moment ind Konstante "bluegen_unit_history"
 		//==========================================================================================================
 		// DUMMY history -> 3 Parameter !!! 1: from (2018-06-25) 2.to (2018-06-26) 3.format (csv) oder (json)
 		const bluegen_unit_history = {"data":[]};
@@ -700,6 +700,40 @@ async function Get_BG_Units()
 		});
 		// unit_history_data des Gerätes in den Datenpunkt schreiben
 		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_history_data", { val: bluegen_unit_history.data, ack: true });
+
+		//==========================================================================================================
+		// Prefs zur Unit abrufen NOCH NICHT IMLEMENTIERT
+		// ====== im Moment ind Konstante "bluegen_unit_current"
+		//==========================================================================================================
+		// DUMMY location
+		const bluegen_unit_prefs = {"fname": "Test", "lname": "Pilot", "email": "user.name@solidpower.com"};
+
+		// Datenpunkt (unit_prefs_fname)) für die aktuelle Unit erstellen falls noch nicht vorhanden
+		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_prefs_fname", {
+			type: "state",
+			common: { name: "unit_prefs_fname", type: "string", role: "indicator", read: true, write: true, },
+			native: {},
+		});
+		// unit_prefs_fname des Gerätes in den Datenpunkt schreiben
+		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_prefs_fname", { val: bluegen_unit_prefs.fname, ack: true });
+
+		// Datenpunkt (unit_prefs_lname)) für die aktuelle Unit erstellen falls noch nicht vorhanden
+		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_prefs_lname", {
+			type: "state",
+			common: { name: "unit_prefs_lname", type: "string", role: "indicator", read: true, write: true, },
+			native: {},
+		});
+		// unit_prefs_lname des Gerätes in den Datenpunkt schreiben
+		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_prefs_lname", { val: bluegen_unit_prefs.lname, ack: true });
+
+		// Datenpunkt (unit_prefs_email)) für die aktuelle Unit erstellen falls noch nicht vorhanden
+		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_prefs_email", {
+			type: "state",
+			common: { name: "unit_prefs_email", type: "string", role: "indicator", read: true, write: true, },
+			native: {},
+		});
+		// unit_prefs_email des Gerätes in den Datenpunkt schreiben
+		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_prefs_email", { val: bluegen_unit_prefs.email, ack: true });
 
 	}
 	myBG15.log.info("------------- Get BG Units FINISH ---------------");
