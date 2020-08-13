@@ -402,8 +402,8 @@ async function Get_BG_Units()
 
 
 	// im Moment noch mit Dummys
-	//const bluegen_units = { "units": [{ "id": "249", "name": "BG-15 links" }, { "id": "251", "name": "BG-15 rechts" }] };
-	const bluegen_units = { "units": [{ "id": "249", "name": "BG-15 Keller" }] };
+	const bluegen_units = { "units": [{ "id": "249", "name": "BG-15 links" }, { "id": "251", "name": "BG-15 rechts" }] };
+	//const bluegen_units = { "units": [{ "id": "249", "name": "BG-15 Keller" }] };
 
 	// Anzahl der Geräte in Globaler Variable ablegen
 	SolitPower_Num_Units = bluegen_units.units.length;
@@ -420,13 +420,12 @@ async function Get_BG_Units()
 	// Anzahl in den Datenpunkt eintragen
 	await myBG15.setStateAsync("num_units", { val: SolitPower_Num_Units, ack: true });
 
-
 	// Alle Units durchgehen
 	// Bei der Objektstruktur Addieren wir + 1, damit die erste Unit unte "1" und nicht "0" in
 	// der Objektstruktur erscheint
 	for (let unit = 0; unit < bluegen_units.units.length; unit++) {
 		// logging
-		myBG15.log.info("ID=" + bluegen_units.units[unit].id);
+		myBG15.log.info("ID=" + bluegen_units.units[unit].id + " NAME=" + bluegen_units.units[unit].name);
 		// Datenpunkt (unit_id)) für die aktuelle Unit erstellen falls noch nicht vorhanden
 		await myBG15.setObjectNotExistsAsync("BlueGEN(" + (unit + 1) + ").unit_id", {
 			type: "state",
