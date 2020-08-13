@@ -384,7 +384,7 @@ async function GetServerToken()
 async function Get_BG_Units()
 {
 	// im Moment noch mit Dummys
-	const bluegen_units = {1458: "erster BG", 23785: "zweiter BG"};
+	const bluegen_units = {14580: "erster BG", 23785: "zweiter BG"};
 
 	myBG15.log.info("------------- Get BG Units START ---------------");
 
