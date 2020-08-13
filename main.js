@@ -12,6 +12,7 @@ const { curly } = require("node-libcurl");
 const querystring = require("querystring");
 
 const { timeStamp } = require("console");
+const { getUnpackedSettings } = require("http2");
 
 const  Test_API_SITE_BASE  = "https://reqres.in";
 
@@ -54,6 +55,8 @@ class Bg15 extends utils.Adapter {
 		// Reset the connection indicator during startup
 		this.setState("info.connection", false, true);
 
+		await Get_BG_Units();
+		
 		// Referenz auf meinen Adapter
 		myBG15 = this;
 
@@ -372,6 +375,21 @@ async function GetServerToken()
 		SolidPower_Server_Token = "NO TOKEN";
 		myBG15.log.info("------------- ERROR getting SolidPower Server Token ---------------");
 	}
+
+}
+
+// die BlueGen Units beim Server abfragen
+async function Get_BG_Units()
+{
+	// im Moment noch mit Dummys
+	const bluegen_units = {0: "erster BG", 1: "zweiter BG"};
+
+	myBG15.log.info("------------- Get BG Units START ---------------");
+
+	for (let key in bluegen_units ) {
+		myBG15.log.info ("ID="+ key + "Name=" +  bluegen_units[key]);
+	}
+	myBG15.log.info("------------- Get BG Units FINISH ---------------");
 
 }
 
