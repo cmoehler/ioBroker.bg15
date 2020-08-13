@@ -388,6 +388,7 @@ async function Get_BG_Units()
 	const bluegen_units = {14580: "erster BG", 23785: "zweiter BG"};
 
 	SolitPower_Num_Units = bluegen_units.length;
+	myBG15.log.info ("Anzahl BlueGens: " + bluegen_units.length.toString());
 	await myBG15.setObjectNotExistsAsync("num_units", {
 		type: "state",
 		common: {
