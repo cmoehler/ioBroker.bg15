@@ -58,8 +58,6 @@ class Bg15 extends utils.Adapter {
 		// Referenz auf meinen Adapter
 		myBG15 = this;
 
-		await Get_BG_Units();
-
 		try {
 			// SolidPower Uwsername from Settings
 			if (typeof this.config.client_username !== "undefined" && this.config.client_username !== null && this.config.client_username !== "") {
@@ -255,8 +253,12 @@ class Bg15 extends utils.Adapter {
 
 
 		if (true) {
+			// Login BlueGen Server und Token abholen
 			await GetServerToken();
+			// ServerToken in Objekt schreiben
 			await this.setStateAsync("server_token", {val: SolidPower_Server_Token, ack: true});
+			// Zugeortneten BlueGEN Units ermitteln
+			await Get_BG_Units();
 		}
 
 		// Set adapter LED indicator to green
@@ -388,6 +390,31 @@ async function Get_BG_Units()
 
 	for (let key in bluegen_units ) {
 		myBG15.log.info ("ID="+ key + " Name=" +  bluegen_units[key]);
+		await myBG15.setObjectNotExistsAsync("units." + key + ".unit_id", {
+			type: "state",
+			common: {
+				name: "unit_id",
+				type: "number",
+				role: "indicator",
+				read: true,
+				write: true,
+			},
+			native: {},
+		});
+		await myBG15.setObjectNotExistsAsync("units." + key + ".unit_name", {
+			type: "state",
+			common: {
+				name: "unit_name",
+				type: "string",
+				role: "indicator",
+				read: true,
+				write: true,
+			},
+			native: {},
+		});
+
+		await myBG15.setStateAsync("units." + key + ".unit_id", {val: key, ack: true});
+		await myBG15.setStateAsync("units." + key + ".unit_name", {val: bluegen_units[key], ack: true});
 	}
 	myBG15.log.info("------------- Get BG Units FINISH ---------------");
 
