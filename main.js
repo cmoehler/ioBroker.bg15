@@ -382,12 +382,12 @@ async function GetServerToken()
 async function Get_BG_Units()
 {
 	// im Moment noch mit Dummys
-	const bluegen_units = {0: "erster BG", 1: "zweiter BG"};
+	const bluegen_units = {1458: "erster BG", 23785: "zweiter BG"};
 
 	myBG15.log.info("------------- Get BG Units START ---------------");
 
 	for (let key in bluegen_units ) {
-		myBG15.log.info ("ID="+ key + "Name=" +  bluegen_units[key]);
+		myBG15.log.info ("ID="+ key + " Name=" +  bluegen_units[key]);
 	}
 	myBG15.log.info("------------- Get BG Units FINISH ---------------");
 
