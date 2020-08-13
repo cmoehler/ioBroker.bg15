@@ -403,12 +403,6 @@ async function Get_BG_Units()
 
 	// im Moment noch mit Dummys
 	const bluegen_units = { "units": [{ "id": "249", "name": "BG-15 links" }, { "id": "251", "name": "BG-15 rechts" }] };
-	const bluegen_unit_details = {"status":{"model":"BG15","pp":"1","status":"PowerExport","tz":"Australia\/Melbourne","gid":"0","pid":"570"}};
-	const bluegen_unit_limits = {"limits":{"minpower":"800","maxpower":"1500","slew_up":"133.333","slew_dn":"133.333"}};
-	const bluegen_unit_current = {"current":{"timestamp":"2018-08-2107:05:00","power":"1493.599976","gas":"4.237735"}};
-	const bluegen_unit_accumulated = {"acc":{"timestamp":"2018-08-2107:05:30","power":"91920.303897","gas":"13722.913771"}};
-	const bluegen_unit_version = {"version":{"ccp":"34","maint":"3","alarm":"2","protocol":"5"}};
-	const bluegen_unit_location = {"location":"Dandenong South, Australia","region":"Melbourne -Victoria","lhv":"10.21046"};
 
 	//const bluegen_units = { "units": [{ "id": "249", "name": "BG-15 Keller" }] };
 
@@ -455,6 +449,8 @@ async function Get_BG_Units()
 		// Details zur Unit abrufen NOCH NICHT IMLEMENTIERT
 		// ====== im Moment ind Konstante "bluegen_unit_details"
 		//==========================================================================================================
+		// DUMMY details
+		const bluegen_unit_details = {"status":{"model":"BG15","pp":"1","status":"PowerExport","tz":"Australia\/Melbourne","gid":"0","pid":"570"}};
 		
 		// Datenpunkt (unit_model)) für die aktuelle Unit erstellen falls noch nicht vorhanden
 		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_model", {
@@ -505,6 +501,8 @@ async function Get_BG_Units()
 		// Limits zur Unit abrufen NOCH NICHT IMLEMENTIERT
 		// ====== im Moment ind Konstante "bluegen_unit_limits"
 		//==========================================================================================================
+		// DUMMY limits
+		const bluegen_unit_limits = {"limits":{"minpower":"800","maxpower":"1500","slew_up":"133.333","slew_dn":"133.333"}};
 
 		// Datenpunkt (unit_limits_minpower)) für die aktuelle Unit erstellen falls noch nicht vorhanden
 		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_limits_minpower", {
@@ -546,6 +544,8 @@ async function Get_BG_Units()
 		// Currents zur Unit abrufen NOCH NICHT IMLEMENTIERT
 		// ====== im Moment ind Konstante "bluegen_unit_current"
 		//==========================================================================================================
+		// DUMMY current
+		const bluegen_unit_current = {"current":{"timestamp":"2018-08-2107:05:00","power":"1493.599976","gas":"4.237735"}};
 
 		// Datenpunkt (unit_current_when)) für die aktuelle Unit erstellen falls noch nicht vorhanden
 		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_current_when", {
@@ -578,6 +578,8 @@ async function Get_BG_Units()
 		// Accumulated zur Unit abrufen NOCH NICHT IMLEMENTIERT
 		// ====== im Moment ind Konstante "bluegen_unit_current"
 		//==========================================================================================================
+		// DUMMY accumulated
+		const bluegen_unit_accumulated = {"acc":{"timestamp":"2018-08-2107:05:30","power":"91920.303897","gas":"13722.913771"}};
 
 		// Datenpunkt (unit_accumulated_when)) für die aktuelle Unit erstellen falls noch nicht vorhanden
 		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_accumulated_when", {
@@ -610,6 +612,8 @@ async function Get_BG_Units()
 		// Version zur Unit abrufen NOCH NICHT IMLEMENTIERT
 		// ====== im Moment ind Konstante "bluegen_unit_current"
 		//==========================================================================================================
+		// DUMMY version
+		const bluegen_unit_version = {"version":{"ccp":"34","maint":"3","alarm":"2","protocol":"5"}};
 
 		// Datenpunkt (unit_version_ccp)) für die aktuelle Unit erstellen falls noch nicht vorhanden
 		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_version_ccp", {
@@ -651,6 +655,8 @@ async function Get_BG_Units()
 		// Location zur Unit abrufen NOCH NICHT IMLEMENTIERT
 		// ====== im Moment ind Konstante "bluegen_unit_current"
 		//==========================================================================================================
+		// DUMMY location
+		const bluegen_unit_location = {"location":"Dandenong South, Australia","region":"Melbourne -Victoria","lhv":"10.21046"};
 
 		// Datenpunkt (unit_location_location)) für die aktuelle Unit erstellen falls noch nicht vorhanden
 		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_location_location", {
@@ -678,6 +684,22 @@ async function Get_BG_Units()
 		});
 		// unit_location_lhv des Gerätes in den Datenpunkt schreiben
 		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_location_lhv", { val: bluegen_unit_location.lhv, ack: true });
+
+		//==========================================================================================================
+		// history zur Unit abrufen NOCH NICHT IMLEMENTIERT
+		// ====== im Moment ind Konstante "bluegen_unit_current"
+		//==========================================================================================================
+		// DUMMY history -> 3 Parameter !!! 1: from (2018-06-25) 2.to (2018-06-26) 3.format (csv) oder (json)
+		const bluegen_unit_history = {"data":[]};
+
+		// Datenpunkt (unit_history_data)) für die aktuelle Unit erstellen falls noch nicht vorhanden
+		await myBG15.setObjectNotExistsAsync("BlueGEN("  + (unit + 1) + ").unit_history_data", {
+			type: "state",
+			common: { name: "unit_history_data", type: "object", role: "indicator", read: true, write: true, },
+			native: {},
+		});
+		// unit_history_data des Gerätes in den Datenpunkt schreiben
+		await myBG15.setStateAsync("BlueGEN("  + (unit + 1) + ").unit_history_data", { val: bluegen_unit_history.data, ack: true });
 
 	}
 	myBG15.log.info("------------- Get BG Units FINISH ---------------");
