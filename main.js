@@ -388,9 +388,10 @@ async function Get_BG_Units()
 
 	myBG15.log.info("------------- Get BG Units START ---------------");
 
+	let i = 1;
 	for (let key in bluegen_units ) {
 		myBG15.log.info ("ID="+ key + " Name=" +  bluegen_units[key]);
-		await myBG15.setObjectNotExistsAsync("units." + key + ".unit_id", {
+		await myBG15.setObjectNotExistsAsync("units." + i + ".unit_id", {
 			type: "state",
 			common: {
 				name: "unit_id",
@@ -401,7 +402,7 @@ async function Get_BG_Units()
 			},
 			native: {},
 		});
-		await myBG15.setObjectNotExistsAsync("units." + key + ".unit_name", {
+		await myBG15.setObjectNotExistsAsync("units." + i + ".unit_name", {
 			type: "state",
 			common: {
 				name: "unit_name",
@@ -415,6 +416,7 @@ async function Get_BG_Units()
 
 		await myBG15.setStateAsync("units." + key + ".unit_id", {val: key, ack: true});
 		await myBG15.setStateAsync("units." + key + ".unit_name", {val: bluegen_units[key], ack: true});
+		i++;
 	}
 	myBG15.log.info("------------- Get BG Units FINISH ---------------");
 
