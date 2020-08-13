@@ -414,8 +414,8 @@ async function Get_BG_Units()
 			native: {},
 		});
 
-		await myBG15.setStateAsync("units." + key + ".unit_id", {val: key, ack: true});
-		await myBG15.setStateAsync("units." + key + ".unit_name", {val: bluegen_units[key], ack: true});
+		await myBG15.setStateAsync("units." + i + ".unit_id", {val: key, ack: true});
+		await myBG15.setStateAsync("units." + i + ".unit_name", {val: bluegen_units[key], ack: true});
 		i++;
 	}
 	myBG15.log.info("------------- Get BG Units FINISH ---------------");
