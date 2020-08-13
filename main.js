@@ -112,11 +112,55 @@ class Bg15 extends utils.Adapter {
 			},
 			native: {},
 		});
-		await this.setObjectNotExistsAsync("unit.version_major", {
+		await this.setObjectNotExistsAsync("server.version_major", {
 			type: "state",
 			common: {
 				name: "version_major",
-				type: "string",
+				type: "number",
+				role: "indicator",
+				read: true,
+				write: true,
+			},
+			native: {},
+		});
+		await this.setObjectNotExistsAsync("server.version_minor", {
+			type: "state",
+			common: {
+				name: "version_minor",
+				type: "number",
+				role: "indicator",
+				read: true,
+				write: true,
+			},
+			native: {},
+		});
+		await this.setObjectNotExistsAsync("server.version_interface", {
+			type: "state",
+			common: {
+				name: "version_interface",
+				type: "number",
+				role: "indicator",
+				read: true,
+				write: true,
+			},
+			native: {},
+		});
+		await this.setObjectNotExistsAsync("server.version_pro", {
+			type: "state",
+			common: {
+				name: "version_pro",
+				type: "number",
+				role: "indicator",
+				read: true,
+				write: true,
+			},
+			native: {},
+		});
+		await this.setObjectNotExistsAsync("server.version_api", {
+			type: "state",
+			common: {
+				name: "version_api",
+				type: "number",
 				role: "indicator",
 				read: true,
 				write: true,
