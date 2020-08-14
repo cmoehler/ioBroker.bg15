@@ -20,12 +20,14 @@ const SolidPower_login_API_URL = "https://ws.bluegen-net.com/sustomer/login";
 
 // Load your modules here, e.g.:
 
-// Info Generell
+//====================================================
+// Info Generell zur ioBroker Objectstruktur
+//
 // adapter.instanz.device.channel.state
 //
 // bg15.0. units.chanel.state
 //
-
+//====================================================
 
 let SolidPower_Server_Token;
 let SolitPower_Num_Units;
