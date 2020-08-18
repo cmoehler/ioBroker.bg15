@@ -377,7 +377,7 @@ async function GetServerToken()
 		// ====== im Moment ind Konstante "SolidPower_login_server_response"
 		//==========================================================================================================
 		// DUMMY details
-		const SolidPower_login_server_response = {"jwt":"lsdkfjöklsdj-DUMMY-ölskdjöjklcnhskjncö<skldösjklcnldddd","eula":"1","last_login":"2018-08-21","timezone":"Australia\/Melbourne","dateformat":"d-m-Y","language":"en"};
+		let SolidPower_login_server_response = {"jwt":"lsdkfjöklsdj-DUMMY-ölskdjöjklcnhskjncö<skldösjklcnldddd","eula":"1","last_login":"2018-08-21","timezone":"Australia\/Melbourne","dateformat":"d-m-Y","language":"en"};
 
 		const { statusCode, data, headers } = await curly.post(SolidPower_login_API_URL,
 			{
@@ -398,10 +398,22 @@ async function GetServerToken()
 		myBG15.log.info("headers: " + headers.toString());
 
 		const server_response_data = data;
-		if(server_response_data == ""){
-			myBG15.log.console.error("ERROR: SolidPOWER server login");
-		}else{
-			myBG15.log.console.info("OK: SolidPOWER server login");
+		if (server_response_data == "") {
+			myBG15.log.error("ERROR: SolidPOWER server login");
+		} else {
+			try {
+				SolidPower_login_server_response.jwt = server_response_data.jwt;
+				SolidPower_login_server_response.eula = server_response_data.eula;
+				SolidPower_login_server_response.last_login = server_response_data.last_login;
+				SolidPower_login_server_response.timezone = server_response_data.timezone;
+				SolidPower_login_server_response.dateformat = server_response_data.dateformat;
+				SolidPower_login_server_response.language = server_response_data.language;
+				myBG15.log.console.info("OK: SolidPOWER server login");
+			} catch (e) {
+				myBG15.log.error("ERROR: SolidPOWER login data response inkonsistent");
+				myBG15.console.log.error(e);
+			}
+
 		}
 		
 		// Datenpunkt (server_jwt) (TOKEN) für autentifizierung beim Daten abholen
